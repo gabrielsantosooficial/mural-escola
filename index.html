@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14213D">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mural">
+<title>Mural da Escola</title>
+<style>
+:root{--bg:#F2F5F9;--card:#fff;--ink:#14213D;--mut:#5C6780;--line:#DDE3EC;--chip:#E6ECF5;--acc:#FFC93C;--urg:#D6303A;--ok:#14866F;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1626;--card:#17233B;--ink:#EEF2F8;--mut:#9AA8C2;--line:#27344F;--chip:#22304D;--urg:#FF6B73;--ok:#4FD1B0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1626;--card:#17233B;--ink:#EEF2F8;--mut:#9AA8C2;--line:#27344F;--chip:#22304D;--urg:#FF6B73;--ok:#4FD1B0;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+#app{height:100%;display:flex;flex-direction:column;max-width:560px;margin:0 auto;position:relative}
+header{padding:14px 16px 10px;display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--acc);display:grid;place-items:center;font-size:20px;flex:none}
+header h1{font-size:18px;margin:0;line-height:1.15;font-weight:800;letter-spacing:-.01em}
+header small{color:var(--mut);font-size:12.5px}
+.hb{margin-left:auto;display:flex;gap:6px}
+.ib{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 11px;cursor:pointer;font-size:14px;font-weight:600}
+main{flex:1;overflow-y:auto;padding:4px 16px 20px}
+nav{display:flex;border-top:1px solid var(--line);background:var(--card)}
+nav button{flex:1;border:0;background:none;padding:9px 0 8px;font-size:11.5px;color:var(--mut);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-weight:600}
+nav button span{font-size:20px;line-height:1}
+nav button.on{color:var(--ink)}
+nav button.on span{background:var(--acc);border-radius:10px;padding:2px 14px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0 12px}
+.chip{flex:none;border:1px solid var(--line);background:var(--chip);border-radius:20px;padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sum{background:var(--ink);color:var(--bg);border-radius:18px;padding:14px 16px;margin-bottom:14px}
+.sum b{font-size:17px;display:block;margin-bottom:2px}
+.sum span{font-size:13.5px;opacity:.85}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;position:relative}
+.card.pin{border-color:var(--acc);box-shadow:inset 4px 0 0 var(--acc)}
+.card.urg{border-color:var(--urg);box-shadow:inset 4px 0 0 var(--urg)}
+.top{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--mut);margin-bottom:6px;flex-wrap:wrap}
+.tag{background:var(--chip);color:var(--ink);border-radius:8px;padding:2px 8px;font-weight:700}
+.tag.u{background:var(--urg);color:#fff}
+.tag.p{background:var(--acc);color:#14213D}
+.card h3{margin:0 0 4px;font-size:16.5px;line-height:1.25}
+.card p{margin:0;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.att{display:inline-flex;gap:6px;align-items:center;margin-top:10px;border:1px dashed var(--line);border-radius:10px;padding:6px 10px;font-size:13px;color:var(--mut)}
+.foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font-size:12.5px;color:var(--mut)}
+.li{border:1.5px solid var(--ink);background:none;border-radius:10px;padding:7px 14px;font-weight:700;cursor:pointer;font-size:13.5px}
+.li.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.bar{height:5px;border-radius:5px;background:var(--chip);margin-top:4px;width:110px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.ev{display:flex;gap:12px;align-items:center}
+.date{flex:none;width:52px;text-align:center;background:var(--chip);border-radius:12px;padding:6px 0}
+.date b{display:block;font-size:20px;line-height:1.1}
+.date small{font-size:11.5px;color:var(--mut);font-weight:700}
+h2{font-size:20px;margin:6px 0 10px;letter-spacing:-.01em}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}
+input,select,textarea{width:100%;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:11px 12px;font-size:15px}
+textarea{min-height:96px;resize:vertical}
+.btn{width:100%;margin-top:16px;border:0;border-radius:14px;padding:14px;background:var(--acc);color:#14213D;font-weight:800;font-size:16px;cursor:pointer}
+.row{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:14px}
+.row input{width:auto}
+.sheet{position:absolute;inset:0;background:rgba(10,16,30,.55);display:flex;align-items:flex-end;z-index:5}
+.sheet>div{background:var(--bg);width:100%;border-radius:22px 22px 0 0;padding:20px 16px 22px;max-height:90%;overflow-y:auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.grid .chip{text-align:center;padding:12px 0;font-size:15px;border-radius:14px}
+.toast{position:absolute;left:16px;right:16px;bottom:78px;background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 14px;font-size:14px;font-weight:600;z-index:9;transition:opacity .2s;pointer-events:none}
+.push{position:absolute;left:10px;right:10px;top:8px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:11px 13px;display:flex;gap:10px;z-index:9;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:transform .35s,opacity .35s;cursor:pointer}
+.push small{color:var(--mut);display:block}
+.hide{opacity:0;pointer-events:none}
+.push.hide{transform:translateY(-90px)}
+.empty{text-align:center;color:var(--mut);padding:36px 10px;font-size:15px}
+.note{font-size:12.5px;color:var(--mut);margin-top:10px;line-height:1.4}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var SALAS=["6ºA","6ºB","7ºA","7ºB","8ºA","8ºB","9ºA","9ºB","1º EM"];
+var N=[
+{id:1,tipo:"dir",from:"Direção",sala:"Todas",title:"Reunião de pais: sábado, 8h",text:"Entrega de boletins do 4º bimestre. Cada sala terá horário próprio, veja o PDF anexo.",when:"hoje, 07:40",pin:1,urg:0,att:"horarios-reuniao.pdf",reads:612,total:840},
+{id:2,tipo:"dir",from:"Direção",sala:"Todas",title:"Aula suspensa amanhã à tarde",text:"Por causa da manutenção elétrica, não haverá aula no turno da tarde. O turno da manhã segue normal.",when:"hoje, 09:15",pin:0,urg:1,att:"",reads:498,total:840},
+{id:3,tipo:"prof",from:"Prof.ª Marta · Matemática",sala:"7ºB",title:"Prova de Matemática na quinta",text:"Conteúdo: equações do 1º grau e proporção. Levar calculadora simples e régua.",when:"ontem, 16:20",pin:0,urg:0,att:"lista-exercicios.pdf",reads:21,total:34},
+{id:4,tipo:"prof",from:"Prof. Caio · Ciências",sala:"6ºA",title:"Trazer material da feira de ciências",text:"Cada grupo deve trazer o cartaz pronto na segunda. Quem ainda não escolheu o tema, fale comigo.",when:"ontem, 11:05",pin:0,urg:0,att:"",reads:18,total:31},
+{id:5,tipo:"dir",from:"Direção",sala:"Todas",title:"Uniforme de Educação Física",text:"A partir do dia 2, o uso do uniforme completo será obrigatório nas aulas práticas.",when:"seg, 14:00",pin:0,urg:0,att:"",reads:540,total:840},
+{id:6,tipo:"prof",from:"Prof.ª Lúcia · Português",sala:"9ºA",title:"Entrega da redação",text:"Prazo final: sexta, até às 18h, pelo caderno ou foto enviada à coordenação.",when:"seg, 10:30",pin:0,urg:0,att:"tema-redacao.jpg",reads:25,total:29}
+];
+var EV=[["28","NOV","Reunião de pais e entrega de boletins","08h · Pátio principal"],["02","DEZ","Feira de Ciências","14h · Ginásio"],["05","DEZ","Conselho de classe","Sem aula para os alunos"],["12","DEZ","Formatura do 9º ano","19h · Auditório"],["18","DEZ","Último dia de aula","Entrega de lembranças"]];
+var S={sala:[],tab:"feed",f:"eu",read:{},prof:false,sheet:false,sel:[],push:true};
+try{var sv=JSON.parse(localStorage.getItem("mural_salas")||"[]");if(sv.length)S.sala=sv}catch(e){}
+S.sheet=!S.sala.length;
+var $=function(s){return document.querySelector(s)};
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function mine(n){return n.sala==="Todas"||S.sala.indexOf(n.sala)>-1}
+function card(n){
+ var r=S.read[n.id],reads=n.reads+(r?1:0),pc=Math.round(reads/n.total*100);
+ return '<article class="card'+(n.urg?' urg':n.pin?' pin':'')+'"><div class="top">'+
+ (n.urg?'<span class="tag u">Urgente</span>':'')+(n.pin?'<span class="tag p">Fixado</span>':'')+
+ '<span class="tag">'+esc(n.sala)+'</span><span>'+esc(n.from)+' · '+esc(n.when)+'</span></div>'+
+ '<h3>'+esc(n.title)+'</h3><p>'+esc(n.text)+'</p>'+
+ (n.att?'<div class="att">📎 '+esc(n.att)+'</div>':'')+
+ '<div class="foot"><div>'+reads+' de '+n.total+' já viram<div class="bar"><i style="width:'+pc+'%"></i></div></div>'+
+ '<button class="li'+(r?' done':'')+'" data-read="'+n.id+'">'+(r?'✓ Li':'Marcar como lido')+'</button></div></article>'}
+function feed(){
+ var l=N.filter(function(n){return n.tipo==="dir"||n.tipo==="prof"});
+ if(S.f==="eu")l=l.filter(mine);
+ if(S.f==="urg")l=l.filter(function(n){return n.urg});
+ if(S.f==="nl")l=l.filter(function(n){return mine(n)&&!S.read[n.id]});
+ l.sort(function(a,b){return (b.urg*2+b.pin)-(a.urg*2+a.pin)});
+ var unread=N.filter(function(n){return mine(n)&&!S.read[n.id]}).length;
+ var ch=[["eu","Para minha sala"],["nl","Não lidos"],["urg","Urgentes"],["all","Todas as salas"]].map(function(c){return '<button class="chip'+(S.f===c[0]?' on':'')+'" data-f="'+c[0]+'">'+c[1]+'</button>'}).join("");
+ return '<div class="sum"><b>'+(unread?unread+' aviso'+(unread>1?'s':'')+' para você ler':'Tudo em dia 🎉')+'</b><span>'+(S.sala.length?'Sala'+(S.sala.length>1?'s':'')+': '+S.sala.join(", "):'Escolha a sala do aluno')+'</span></div><div class="chips">'+ch+'</div>'+(l.length?l.map(card).join(""):'<div class="empty">Nenhum aviso aqui. Quando houver, você recebe uma notificação.</div>')}
+function dir(){
+ return '<h2>Direção</h2>'+N.filter(function(n){return n.tipo==="dir"}).map(card).join("")+
+ '<div class="card"><h3>Fale com a secretaria</h3><p>Segunda a sexta, 7h às 17h<br>(00) 0000-0000 · secretaria@escola.exemplo</p></div>'}
+function agenda(){
+ return '<h2>Agenda da escola</h2>'+EV.map(function(e){return '<div class="card ev"><div class="date"><b>'+e[0]+'</b><small>'+e[1]+'</small></div><div><h3>'+esc(e[2])+'</h3><p style="color:var(--mut)">'+esc(e[3])+'</p></div></div>'}).join("")}
+function prof(){
+ if(!S.prof)return '<h2>Área do professor</h2><div class="card"><p>Só professores e direção publicam avisos. Alunos e famílias não precisam de cadastro.</p><label for="pin">Código de acesso</label><input id="pin" type="password" inputmode="numeric" placeholder="Digite o código"><button class="btn" id="go">Entrar</button><p class="note">No protótipo, o código é 1234.</p></div>';
+ return '<h2>Novo aviso</h2><div class="card"><label for="ps">Enviar para</label><select id="ps"><option>Todas as salas</option>'+SALAS.map(function(s){return '<option>'+s+'</option>'}).join("")+'</select><label for="pt">Título</label><input id="pt" maxlength="70" placeholder="Ex.: Prova de História na sexta"><label for="px">Mensagem</label><textarea id="px" placeholder="Escreva o aviso para os alunos e as famílias"></textarea><div class="row"><input type="checkbox" id="pu"><label for="pu" style="margin:0">Marcar como urgente</label></div><div class="row"><button class="ib" id="pa" type="button">📎 Anexar PDF ou foto</button><span id="pan" style="color:var(--mut);font-size:13px"></span></div><button class="btn" id="pub">Publicar e notificar</button></div>'}
+function sheet(){
+ return '<div class="sheet"><div><h2 style="margin-top:0">Qual a sala do aluno?</h2><p style="margin:0;color:var(--mut);font-size:14.5px;line-height:1.4">Sem cadastro e sem senha. Se tiver mais de um filho, escolha mais de uma sala.</p><div class="grid">'+SALAS.map(function(s){return '<button class="chip'+(S.sel.indexOf(s)>-1?' on':'')+'" data-s="'+s+'">'+s+'</button>'}).join("")+'</div><div class="row"><input type="checkbox" id="pn"'+(S.push?' checked':'')+'><label for="pn" style="margin:0">Receber notificações dos avisos</label></div><button class="btn" id="ok"'+(S.sel.length?'':' style="opacity:.5"')+'>Entrar no mural</button></div></div>'}
+function render(){
+ var tabs=[["feed","📌","Feed"],["dir","🏫","Direção"],["ag","🗓️","Agenda"],["prof","✏️","Professor"]];
+ var body={feed:feed,dir:dir,ag:agenda,prof:prof}[S.tab]();
+ var keep=$("main")?$("main").scrollTop:0;
+ $("#app").innerHTML='<header><div class="logo">🎒</div><div><h1>Mural da Escola</h1><small>Colégio Exemplo</small></div><div class="hb"><button class="ib" id="bell" aria-label="Testar notificação">🔔</button><button class="ib" id="chg" aria-label="Trocar sala">'+(S.sala[0]||'Sala')+(S.sala.length>1?' +'+(S.sala.length-1):'')+'</button></div></header><main>'+body+'</main><nav>'+tabs.map(function(t){return '<button class="'+(S.tab===t[0]?'on':'')+'" data-t="'+t[0]+'"><span>'+t[1]+'</span>'+t[2]+'</button>'}).join("")+'</nav><div class="toast hide" id="toast"></div><div class="push hide" id="push"><div class="logo" style="width:34px;height:34px;font-size:17px">🎒</div><div><b>Mural da Escola · agora</b><small id="pm"></small></div></div>'+(S.sheet?sheet():'');
+ $("main").scrollTop=keep}
+function toast(t){var e=$("#toast");e.textContent=t;e.classList.remove("hide");setTimeout(function(){e&&e.classList.add("hide")},2600)}
+function push(m){if(!S.push){toast("Notificações desligadas");return}$("#pm").textContent=m;var e=$("#push");e.classList.remove("hide");setTimeout(function(){e.classList.add("hide")},3800)}
+document.addEventListener("click",function(e){
+ var t=e.target.closest("button");if(!t)return;var d=t.dataset;
+ if(d.t){S.tab=d.t;render()}
+ else if(d.f){S.f=d.f;render()}
+ else if(d.read){S.read[d.read]=!S.read[d.read];render()}
+ else if(d.s){var i=S.sel.indexOf(d.s);i>-1?S.sel.splice(i,1):S.sel.push(d.s);render()}
+ else if(t.id==="ok"){if(!S.sel.length){toast("Escolha pelo menos uma sala");return}S.push=$("#pn").checked;S.sala=S.sel.slice();S.sheet=false;try{localStorage.setItem("mural_salas",JSON.stringify(S.sala))}catch(x){}render();setTimeout(function(){push("Direção: Reunião de pais, sábado às 8h")},700)}
+ else if(t.id==="chg"){S.sel=S.sala.slice();S.sheet=true;render()}
+ else if(t.id==="bell"){push("Prof.ª Marta: Prova de Matemática na quinta")}
+ else if(t.id==="go"){if($("#pin").value==="1234"){S.prof=true;render()}else toast("Código incorreto. Tente de novo.")}
+ else if(t.id==="pa"){$("#pan").textContent="atividade.pdf anexado"}
+ else if(t.id==="pub"){
+  var ti=$("#pt").value.trim(),tx=$("#px").value.trim();
+  if(!ti||!tx){toast("Preencha o título e a mensagem");return}
+  var sl=$("#ps").value==="Todas as salas"?"Todas":$("#ps").value,at=$("#pan").textContent?"atividade.pdf":"";
+  var nid=N.length+1;N.unshift({id:nid,tipo:"prof",from:"Você · Professor",sala:sl,title:ti,text:tx,when:"agora",pin:0,urg:$("#pu").checked?1:0,att:at,reads:0,total:sl==="Todas"?840:32});
+  S.tab="feed";S.f="all";render();toast("Aviso publicado. Notificação enviada para "+(sl==="Todas"?"todas as famílias":"a sala "+sl));setTimeout(function(){push(ti)},900)}
+});
+render();
+</script>
+</body>
+</html>
