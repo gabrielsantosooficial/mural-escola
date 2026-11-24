@@ -1,0 +1,13 @@
+{
+  "name": "Mural da Escola",
+  "short_name": "Mural",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14213D",
+  "theme_color": "#14213D",
+  "lang": "pt-BR",
+  "icons": [
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}
